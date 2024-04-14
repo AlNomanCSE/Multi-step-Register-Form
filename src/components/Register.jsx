@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CounterContext } from "../contexts/Counter";
 
-function Main() {
+function Register() {
+  const counterContext = useContext(CounterContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   function handleSubmit(event) {
@@ -54,6 +56,7 @@ function Main() {
           <button
             className="border w-2/5 rounded-3xl p-2 bg-fuchsia-800 cursor-pointer text-lg transition-transform duration-300 ease-in-out 
             transform active:scale-90 shadow-[3px_1px_2px_gray]"
+            onClick={() => counterContext.setCount(counterContext.count + 1)}
           >
             Continue
           </button>
@@ -63,4 +66,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Register;
