@@ -1,10 +1,15 @@
 import { CounterContext } from "../contexts/Counter";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 const Topics = () => {
-  const counterContext = useContext(CounterContext);
+  const { count, setCount, data, setData } = useContext(CounterContext);
   const [software, setSoftware] = useState("bg-slate-700");
   const [user, setUser] = useState("bg-slate-700");
   const [grapic, setGrapic] = useState("bg-slate-700");
+  const [topics, setTopics] = useState([]);
+  useEffect(() => {
+    setData({ ...data, topics: topics });
+  }, [topics]);
+
   return (
     <div
       className="bg-no-repeat h-screen w-screen grid place-items-center"
@@ -23,20 +28,26 @@ const Topics = () => {
             className={`border rounded-md p-2 ${software} font-bold cursor-pointer `}
             onClick={() => {
               setSoftware("bg-purple-600");
-              localStorage.setItem("detals", JSON.stringify({ ..."detlas" }));
+              setTopics([...topics, "Software Development"]);
             }}
           >
             Software Development
           </p>
           <p
             className={`border rounded-md p-2 ${user}  font-bold cursor-pointer`}
-            onClick={() => setUser("bg-purple-600")}
+            onClick={() => {
+              setUser("bg-purple-600");
+              setTopics([...topics, "User Experience"]);
+            }}
           >
             User Experience
           </p>
           <p
             className={`border rounded-md p-2 ${grapic}  font-bold cursor-pointer`}
-            onClick={() => setGrapic("bg-purple-600")}
+            onClick={() => {
+              setGrapic("bg-purple-600");
+              setTopics([...topics, "Grapic Design"]);
+            }}
           >
             Grapic Design
           </p>
@@ -45,7 +56,7 @@ const Topics = () => {
           <button
             className="border w-2/5 rounded-3xl p-2 bg-fuchsia-800 cursor-pointer text-lg transition-transform duration-300 ease-in-out 
             transform active:scale-90 shadow-[3px_1px_2px_gray]"
-            onClick={() => counterContext.setCount(counterContext.count + 1)}
+            onClick={() => setCount(count + 1)}
           >
             Continue
           </button>

@@ -1,14 +1,22 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CounterContext } from "../contexts/Counter";
 
 function Register() {
-  const counterContext = useContext(CounterContext);
+  const { count, setCount, data, setData } = useContext(CounterContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  function handleSubmit(event) {
-    event.preventDefault();
-    localStorage.setItem("detals", JSON.stringify({ name, email }));
-  }
+  const handleSubmit = () => {
+    setCount(count + 1);
+  };
+  useEffect(() => {
+    setData({
+      ...data,
+      details: {
+        name: name,
+        email: email,
+      },
+    });
+  }, [name, email]);
   return (
     <div
       className="bg-no-repeat h-screen w-screen grid place-items-center"
@@ -56,7 +64,7 @@ function Register() {
           <button
             className="border w-2/5 rounded-3xl p-2 bg-fuchsia-800 cursor-pointer text-lg transition-transform duration-300 ease-in-out 
             transform active:scale-90 shadow-[3px_1px_2px_gray]"
-            onClick={() => counterContext.setCount(counterContext.count + 1)}
+            type="submit"
           >
             Continue
           </button>
